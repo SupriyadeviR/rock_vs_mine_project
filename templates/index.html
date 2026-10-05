@@ -1,0 +1,45 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🧠 Rock vs Mine Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🧠 Rock vs Mine Detection System</h1>
+    <p class="subtitle">Advanced ML-powered sonar data analysis for underwater object classification</p>
+    <p class="subtitle">Enter values in range <b>0.0 - 1.0</b> (Total 10 features)</p>
+
+    <div class="form-box">
+      <form action="/predict" method="POST">
+        {% for i in range(1, 11) %}
+          <input type="number" step="any" name="feature{{ i }}" placeholder="Feature {{ i }}" required>
+        {% endfor %}
+        <button type="submit">🔍 Predict</button>
+      </form>
+    </div>
+
+    <div class="result">
+      <h2>🎯 Prediction Results</h2>
+      <p>{{ prediction_text }}</p>
+    </div>
+
+    <div class="info">
+      <h2>📊 Algorithm Info:</h2>
+      <p>Using ML classification based on <b>10 sonar features</b>: signal strength and echo patterns.</p>
+    </div>
+
+    <div class="history">
+      <h2>📂 Prediction History</h2>
+      <a href="/clear-history"><button type="button">🧹 Clear History</button></a>
+      <ul>
+        {% for h in history %}
+          <li>{{ h[1] }} → {{ h[0] }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
